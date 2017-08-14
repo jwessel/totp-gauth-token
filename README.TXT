@@ -19,3 +19,6 @@ you can scan into a device with the QR code.  Depending on what
 type of server you are using for the 2FA you need to save off either
 the Server Hex Secret or the Base-32 Secret.
 
+If you just want to see what it looks like you can take a look here:
+
+http://htmlpreview.github.io/?https://github.com/jwessel/totp-gauth-token/blob/master/QR_generator.html
