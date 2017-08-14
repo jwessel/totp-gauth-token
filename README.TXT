@@ -6,6 +6,7 @@ Usage: ./generate_key.sh [--label <toke label>] [--secret <hex secret>]
 Quick start:
 
 git clone https://github.com/jwessel/totp-gauth-token
+cd totp-gauth-token
 ./generate_key.sh 
 
 Or you could generate a key with a token name filled in:

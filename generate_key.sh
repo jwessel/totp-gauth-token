@@ -1,5 +1,4 @@
 #!/bin/bash
-set -x
 # Options parse
 while [[ $# -gt 1 ]] ; do
     key="$1"
