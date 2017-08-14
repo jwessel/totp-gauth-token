@@ -1,0 +1,559 @@
+<!DOCTYPE html>
+<html><head>
+<meta http-equiv="content-type" content="text/html; charset=UTF-8">
+  <title>2FA QR code generator</title>
+
+  <meta charset="utf-8">
+  <meta name="author" content="Jason Wessel">
+  <meta name="description" content="2FA QR code generator">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+
+  <link rel="icon" href="data:image/png;base64,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">
+  <link rel="license" href="https://www.gnu.org/licenses/gpl-3.0.html" title="GNU GPL v3 or later">
+  <link rel="stylesheet" href="QR_generator_files/bootstrap.css" integrity="sha384-pdapHxIh7EYuwy6K7iE41uXVxGCXY0sAjBzaElYGJUrzwodck3Lx6IE2lA0rFREo" crossorigin="anonymous">
+  <link rel="stylesheet" href="QR_generator_files/bootstrap-theme.css" integrity="sha384-aUGj/X2zp5rLCbBxumKTCw2Z50WgIr1vs/PFN4praOTvYXWlVyh2UtNUU0KAUhAX" crossorigin="anonymous">
+  <link rel="stylesheet" href="QR_generator_files/css.css">
+  <script src="QR_generator_files/jquery-2.js" integrity="sha384-R4/ztc4ZlRqWjqIuvf6RX5yb/v90qNGx6fS48N0tRxiGkqveZETq72KgDVJCp2TC" crossorigin="anonymous"></script>
+  <script src="QR_generator_files/jquery.js" integrity="sha384-XEhB3ncbnXl/jivaHehPfuDCYloM4y9eaNehqnyytrMkobhmlMFnq1YeTgdwb9Oa" crossorigin="anonymous"></script>
+<script>
+;(function(){
+  var alphabet = "ABCDEFGHIJKLMNOPQRSTUVWXYZ234567"
+
+/**
+ * Build a lookup table and memoize it
+ *
+ * Return an object that maps a character to its
+ * byte value.
+ */
+
+var lookup = function() {
+    var table = {}
+    // Invert 'alphabet'
+    for (var i = 0; i < alphabet.length; i++) {
+        table[alphabet[i]] = i
+    }
+    lookup = function() { return table }
+    return table
+}
+
+/**
+ * A streaming encoder
+ *
+ *     var encoder = new base32.Encoder()
+ *     var output1 = encoder.update(input1)
+ *     var output2 = encoder.update(input2)
+ *     var lastoutput = encode.update(lastinput, true)
+ */
+
+function Encoder() {
+    var skip = 0 // how many bits we will skip from the first byte
+    var bits = 0 // 5 high bits, carry from one byte to the next
+
+    this.output = ''
+
+    // Read one byte of input
+    // Should not really be used except by "update"
+    this.readByte = function(byte) {
+        // coerce the byte to an int
+        if (typeof byte == 'string') byte = byte.charCodeAt(0)
+
+        if (skip < 0) { // we have a carry from the previous byte
+            bits |= (byte >> (-skip))
+        } else { // no carry
+            bits = (byte << skip) & 248
+        }
+
+        if (skip > 3) {
+            // not enough data to produce a character, get us another one
+            skip -= 8
+            return 1
+        }
+
+        if (skip < 4) {
+            // produce a character
+            this.output += alphabet[bits >> 3]
+            skip += 5
+        }
+
+        return 0
+    }
+
+    // Flush any remaining bits left in the stream
+    this.finish = function(check) {
+        var output = this.output + (skip < 0 ? alphabet[bits >> 3] : '') + (check ? '$' : '')
+        this.output = ''
+        return output
+    }
+}
+
+/**
+ * Process additional input
+ *
+ * input: string of bytes to convert
+ * flush: boolean, should we flush any trailing bits left
+ *        in the stream
+ * returns: a string of characters representing 'input' in base32
+ */
+
+Encoder.prototype.update = function(input, flush) {
+    for (var i = 0; i < input.length; ) {
+        i += this.readByte(input[i])
+    }
+    // consume all output
+    var output = this.output
+    this.output = ''
+    if (flush) {
+      output += this.finish()
+    }
+    return output
+}
+
+// Functions analogously to Encoder
+
+function Decoder() {
+    var skip = 0 // how many bits we have from the previous character
+    var byte = 0 // current byte we're producing
+
+    this.output = ''
+
+    // Consume a character from the stream, store
+    // the output in this.output. As before, better
+    // to use update().
+    this.readChar = function(char) {
+        if (typeof char != 'string'){
+            if (typeof char == 'number') {
+                char = String.fromCharCode(char)
+            }
+        }
+        //char = char.toLowerCase()
+        var val = lookup()[char]
+        if (typeof val == 'undefined') {
+            // character does not exist in our lookup table
+            return // skip silently. An alternative would be:
+            // throw Error('Could not find character "' + char + '" in lookup table.')
+        }
+        val <<= 3 // move to the high bits
+        byte |= val >>> skip
+        skip += 5
+        if (skip >= 8) {
+            // we have enough to preduce output
+            this.output += String.fromCharCode(byte)
+            skip -= 8
+            if (skip > 0) byte = (val << (5 - skip)) & 255
+            else byte = 0
+        }
+
+    }
+
+    this.finish = function(check) {
+        var output = this.output + (skip < 0 ? alphabet[bits >> 3] : '') + (check ? '$' : '')
+        this.output = ''
+        return output
+    }
+}
+
+Decoder.prototype.update = function(input, flush) {
+    for (var i = 0; i < input.length; i++) {
+        this.readChar(input[i])
+    }
+    var output = this.output
+    this.output = ''
+    if (flush) {
+      output += this.finish()
+    }
+    return output
+}
+
+/** Convenience functions
+ *
+ * These are the ones to use if you just have a string and
+ * want to convert it without dealing with streams and whatnot.
+ */
+
+// String of data goes in, Base32-encoded string comes out.
+function encode(input) {
+  var encoder = new Encoder()
+  var output = encoder.update(input, true)
+  return output
+}
+
+// Base32-encoded string goes in, decoded data comes out.
+function decode(input) {
+    var decoder = new Decoder()
+    var output = decoder.update(input, true)
+    return output
+}
+
+/**
+ * sha1 functions wrap the hash function from Node.js
+ *
+ * Several ways to use this:
+ *
+ *     var hash = base32.sha1('Hello World')
+ *     base32.sha1(process.stdin, function (err, data) {
+ *       if (err) return console.log("Something went wrong: " + err.message)
+ *       console.log("Your SHA1: " + data)
+ *     }
+ *     base32.sha1.file('/my/file/path', console.log)
+ */
+
+var crypto, fs
+function sha1(input, cb) {
+    if (typeof crypto == 'undefined') crypto = require('crypto')
+    var hash = crypto.createHash('sha1')
+    hash.digest = (function(digest) {
+        return function() {
+            return encode(digest.call(this, 'binary'))
+        }
+    })(hash.digest)
+    if (cb) { // streaming
+        if (typeof input == 'string' || Buffer.isBuffer(input)) {
+            try {
+                return cb(null, sha1(input))
+            } catch (err) {
+                return cb(err, null)
+            }
+        }
+        if (!typeof input.on == 'function') return cb({ message: "Not a stream!" })
+        input.on('data', function(chunk) { hash.update(chunk) })
+        input.on('end', function() { cb(null, hash.digest()) })
+        return
+    }
+
+    // non-streaming
+    if (input) {
+        return hash.update(input).digest()
+    }
+    return hash
+}
+sha1.file = function(filename, cb) {
+    if (filename == '-') {
+        process.stdin.resume()
+        return sha1(process.stdin, cb)
+    }
+    if (typeof fs == 'undefined') fs = require('fs')
+    return fs.stat(filename, function(err, stats) {
+        if (err) return cb(err, null)
+        if (stats.isDirectory()) return cb({ dir: true, message: "Is a directory" })
+        return sha1(require('fs').createReadStream(filename), cb)
+    })
+}
+
+var base32 = {
+    Decoder: Decoder,
+    Encoder: Encoder,
+    encode: encode,
+    decode: decode,
+    sha1: sha1
+}
+
+if (typeof window !== 'undefined') {
+  // we're in a browser - OMG!
+  window.base32 = base32
+}
+
+if (typeof module !== 'undefined' && module.exports) {
+  // nodejs/browserify
+  module.exports = base32
+}
+})();
+
+function base16encode(str) {
+  var ret = [];
+  for (var i = 0; i < str.length; ++i) {
+    ret.push(("00" + str.charCodeAt(i).toString(16)).slice(-2));
+  }
+  return ret.join("");
+}
+
+function base16decode( str ) {
+    return str.replace( /([A-fa-f0-9]{2})/g, function( m, g1 ) {
+        return String.fromCharCode( parseInt( g1, 16 ));
+    });
+}
+</script>
+<style>
+body {
+  padding: 0 15px;
+  margin-bottom: 100px;
+}
+a {
+  cursor: pointer;
+}
+.container {
+  padding: 0;
+}
+@media (min-width: 768px) {
+  .container {
+    max-width: 770px;
+  }
+}
+
+header {
+  margin-top: 25px;
+  text-align: center;
+}
+h1 {
+  font-size: 4em;
+  font-weight: 700;
+  margin-bottom: 0.5em;
+}
+h2 {
+  border: none;
+  margin-top: 1em;
+  font-size: 1.5em;
+  font-weight: 400;
+}
+
+#uri {
+  color: gray;
+}
+#uri:focus {
+  color: inherit;
+}
+
+#qr {
+  padding: 25px;
+  text-align: center;
+}
+#app {
+  padding: 10px 20px;
+  background-color: white;
+  border-top: 15px solid #f2f2f2;
+  border-bottom: 15px solid #f2f2f2;
+  font-family: 'Roboto', sans-serif;
+}
+#app_code {
+  color: #4285f4;
+  font-weight: 500;
+  font-size: xx-large;
+}
+#app_label {
+  color: #757575;
+}
+</style>
+</head>
+<body>
+  <header>
+    <h1 itemprop="name">2FA QR code generator</h1>
+    Save your 2FA secrets, then use this to scan them again.
+  </header>
+
+  <div class="container">
+    <hr>
+    Server Hex Secret:<br>
+    <p class=""><input class="form-control" id="serverhash" placeholder="Hex Secret" value="HEX_SECRET_HERE" type="text"></p>
+
+    <hr>
+
+    <p>
+      Token Type:<br>
+      <select class="form-control" id="type">
+        <option value="totp" selected="selected">Time based (TOTP)</option>
+        <option value="hotp">Counter based (HOTP)</option>
+      </select>
+    </p>
+
+    <p class="">Base-32 Secret:<br><input class="form-control" name="secret" id="secret" placeholder="Base32 Secret Required" value="BASE_32_SECRET_HERE" type="search"></p>
+    <script>
+      $("#secret").val(base32.encode(base16decode($("#serverhash").val())));
+    </script>
+    <p class="">Label for token in app (ie: My_Firewall):<br><input class="form-control" id="label" placeholder="Label — Required" value="Token" type="search"></p>
+    <p>Optional Issuer (ie: some_dot_domain):<br> <input class="form-control" id="issuer" placeholder="Issuer — Optional" list="issuers" type="search"></p>
+    <p><input class="form-control" id="counter" placeholder="Initial counter — Defaults to 0" pattern="\d+" style="display: none;" type="search"></p>
+    <p>URI encoded in QR code:<br><input class="form-control" name="uri" id="uri" placeholder="otpauth://" spellcheck="false" value="otpauth://totp/PF%20Sense?secret=aaabbbbccccddddaaabbbbccccdddd" type="text"></p>
+
+    <datalist id="issuers">
+      <option>Apple</option>
+      <option>AWS</option>
+      <option>Coinbase</option>
+      <option>Discord</option>
+      <option>DreamHost</option>
+      <option>Dropbox</option>
+      <option>EA</option>
+      <option>Facebook</option>
+      <option>GitHub</option>
+      <option>GitLab</option>
+      <option>Google</option>
+      <option>Heroku</option>
+      <option>LastPass</option>
+      <option>Microsoft</option>
+      <option>Slack</option>
+      <option>Threat Stack</option>
+      <option>Ubuntu</option>
+      <option>Yahoo!</option>
+    </datalist>
+
+    <hr>
+
+    <div id="qr"><canvas width="200" height="200"></canvas></div>
+
+    <hr>
+
+    <p>The issuer parameter is not stored on the Yubikey NEO and will 
+not show up in the Yubico Authenticator app. Check this box to 
+automatically copy the issuer text into the label parameter, mimicing 
+the "issuer (label)" format:</p>
+    <div class="checkbox">
+      <label>
+        <input id="yubimode" type="checkbox"> Yubikey Mode
+      </label>
+    </div>
+
+<script>
+// make a nice QR code as the favicon
+$("#qr").empty().qrcode({
+  render: "image",
+  text: "stefansundin"
+});
+$("link[rel=icon]").prop("href", $("#qr img").prop("src"));
+
+function type_changed() {
+  var type = $("#type").val();
+  if (type == "totp") {
+    $("#counter").hide();
+  }
+  else {
+    $("#counter").show();
+  }
+}
+type_changed();
+$("select").on("change keyup", type_changed);
+
+function generate_uri() {
+  var type = $("#type").val();
+  var secret = $("#secret").val().replace(/ /g, '');
+  var label = $("#label").val();
+  var issuer = $("#issuer").val();
+  var yubimode = $("#yubimode").prop("checked");
+  if (issuer != "" && yubimode) {
+    label = `${issuer} (${label})`;
+  }
+
+  var uri = `otpauth://${type}/${encodeURIComponent(label)}?secret=${secret}`;
+  if (issuer != "" && !yubimode) {
+    uri += `&issuer=${encodeURIComponent(issuer)}`;
+  }
+  var counter = $("#counter").val() || "0";
+  if (type == "hotp") {
+    uri += `&counter=${counter}`;
+  }
+  return uri;
+}
+
+function update_val(el, text) {
+  var start = el.selectionStart;
+  var end = el.selectionEnd;
+  el.value = text;
+  el.setSelectionRange(start, end);
+}
+
+function update_qr() {
+  var secret = $("#secret").val();
+  var issuer = $("#issuer").val();
+  var label = $("#label").val();
+  var uri = generate_uri();
+  if (uri != $("#uri").val()) {
+    update_val($("#uri")[0], uri);
+  }
+
+  $("#qr").empty().qrcode({
+    text: uri
+  });
+  if (label == "" && issuer == "") {
+    $("#app_label").text("Issuer (label)");
+  }
+  else {
+    $("#app_label").text(issuer == "" ? label : `${issuer} (${label})`);
+  }
+
+  // remove error on uri field
+  $("#uri").parents("p").removeClass("has-error");
+  // mark empty required input fields
+  $("#secret").parents("p").toggleClass("has-error", secret == "");
+  $("#label").parents("p").toggleClass("has-error", label == "");
+}
+
+$("#yubimode").on("change", function() {
+  if (!this.checked) {
+    var issuer = $("#issuer").val();
+    var label = $("#label").val();
+    var r = /^([^(]+) \(([^)]+)\)?$/.exec(label);
+    if (issuer == "" && r) {
+      $("#issuer").val(r[1]);
+      $("#label").val(r[2]);
+    }
+  }
+});
+
+update_qr();
+$("select,input[type='search'],input[type='checkbox']").on("change keyup input", update_qr);
+
+function decode(s) {
+  return s ? decodeURIComponent(s) : undefined;
+}
+
+$("#serverhash").on("change keyup input", function() {
+  $("#secret").val(base32.encode(base16decode($("#serverhash").val())));
+  type_changed();
+  update_qr();
+});
+
+$("#secret").on("change keyup input", function() {
+  $("#serverhash").val(base16encode(base32.decode($("#secret").val())));
+  type_changed();
+  update_qr();
+});
+
+$("#uri").on("change keyup input", function() {
+  // validate and parse uri
+  var r = /^otpauth:\/\/([th]otp)\/([^?]+)\?secret=([^&]+)(?:&issuer=([^&]+))?(?:&counter=(\d+))?$/.exec(this.value);
+  if (r) {
+    $("#uri").parents("p").removeClass("has-error");
+  }
+  else {
+    $("#uri").parents("p").addClass("has-error");
+    return;
+  }
+
+  var uri = generate_uri();
+  if (uri == this.value) {
+    // uri did not change
+    return;
+  }
+
+  // update fields and generate a new QR code
+  $("#type").val(r[1]);
+  $("#label").val(decode(r[2]));
+  $("#secret").val(r[3]);
+  $("#issuer").val(decode(r[4]));
+  $("#counter").val(r[5] == "0" ? "": r[5]);
+  type_changed();
+  update_qr();
+});
+</script>
+
+    <hr>
+
+    <p>In the Google Authenticator app, it will look something like this:</p>
+
+    <div id="app">
+      <div id="app_code">123 456</div>
+      <div id="app_label">Token</div>
+<script>
+      $("#app_label").text($("#label").val());
+</script>
+    </div>
+
+    <hr>
+
+    <ul>
+      <li>This is a 2FA QR code generator made in JavaScript that helps you make QR codes from 2FA secrets, initially created by <a href="https://stefansundin.github.io/">Stefan Sundin</a></li>
+      <li>Extended with base32/hex logic by <a href="https://github.com/jwessel/totp-gauth-token">Jason Wessel - TOTP / Google Authenticator Token.</a></li>
+      <li>Uses <a href="https://larsjung.de/jquery-qrcode/">jquery-qrcode</a>.</li>
+      <li>See <a href="https://github.com/google/google-authenticator/wiki/Key-Uri-Format">the docs</a> for the URI format.</li>
+    </ul>
+  </div>
+
+
+</body></html>
