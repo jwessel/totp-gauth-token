@@ -1,6 +1,12 @@
 #!/bin/bash
+
+usage() {
+    echo "$0: [-l <label>] [-s <hex_secret>]"
+    exit
+}
+
 # Options parse
-while [[ $# -gt 1 ]] ; do
+while [[ $# -gt 0 ]] ; do
     key="$1"
     case $key in
 	-l|--label)
@@ -11,9 +17,12 @@ while [[ $# -gt 1 ]] ; do
     	    secret="$2"
 	    shift
 	    ;;
+	-h|--help|-help)
+	    usage
+	    ;;
 	*)
 	    echo "ERROR: Unknown argument $1"
-	    exit 1
+	    usage
 	    ;;
     esac
     shift
