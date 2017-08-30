@@ -21,4 +21,4 @@ the Server Hex Secret or the Base-32 Secret.
 
 If you just want to see what it looks like you can take a look here:
 
-http://htmlpreview.github.io/?https://github.com/jwessel/totp-gauth-token/blob/master/QR_generator.html
+https://jwessel.github.io/totp-gauth-token/QR_generator.html
