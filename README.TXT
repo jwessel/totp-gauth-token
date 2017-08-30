@@ -23,7 +23,9 @@ If you just want to see what it looks like you can take a look here:
 
 https://jwessel.github.io/totp-gauth-token/QR_generator.html
 
-If you came here looking for a tool that uses the hex key or base-32 secret on your unix system you want to checkout oathtool, which is available on many platforms.  See:  http://www.nongnu.org/oath-toolkit/
+If you came here looking for a tool that uses the hex key or base-32
+secret on your unix system you want to checkout oathtool, which is
+available on many platforms.  See: http://www.nongnu.org/oath-toolkit/
 
 Example: 
 
