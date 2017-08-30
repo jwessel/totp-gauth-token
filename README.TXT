@@ -22,3 +22,11 @@ the Server Hex Secret or the Base-32 Secret.
 If you just want to see what it looks like you can take a look here:
 
 https://jwessel.github.io/totp-gauth-token/QR_generator.html
+
+If you came here looking for a tool that uses the hex key or base-32 secret on your unix system you want to checkout oathtool, which is available on many platforms.  See:  http://www.nongnu.org/oath-toolkit/
+
+Example: 
+
+oathtool --totp c404ef1f636869444dda578c5fcba37e2519b23f
+   OR
+oathtool --totp --base32 YQCO6H3DNBUUITO2K6GF7S5DPYSRTMR7
